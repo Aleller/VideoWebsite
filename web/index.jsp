@@ -1,12 +1,11 @@
 <%@ page import="java.io.PrintWriter" %><%--
-    Created by IntelliJ IDEA.
-    User: Alell
-    Date: 2018.05.18
-    Time: 18:26
-    To change this template use File | Settings | File Templates.
+  Created by IntelliJ IDEA.
+  User: Alell
+  Date: 2018.05.23
+  Time: 16:38
+  To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>网站首页</title>
@@ -15,7 +14,11 @@
 
 <%!
     public void jspInit() {
+        //初始化数据库连接
 
+        //如果是从login.jsp重定向到index.jsp，查看cookie判断是否已经登录
+
+        //
     }
 
     public void jspDestroy() {
@@ -24,7 +27,6 @@
 %>
 
 <%
-
     //获取cookie验证用户是否已经登录
     Cookie cookie1 = null;
     Cookie cookie2 = null;
@@ -43,7 +45,7 @@
 
         if((cookie1 != null) && (cookie2 != null)){
             if(cookie1.getValue().equals("true")){
-                out.println(cookie2.getValue() + "loginsuccess!");
+                out.println(cookie2.getValue() + "login success!");
             }
         }
     }

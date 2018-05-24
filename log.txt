@@ -1,0 +1,46 @@
+不论所有其他东西（美观，安全，性能），先把功能做出来再说。
+
+目标：
+20180519上午完成登录功能。
+20180524晚上，终于算是完成了登录功能。我好菜啊（
+
+未做好的地方：
+1.数据库的user表里面存储的是用户的密码明文。以后可以存储密码的md5
+
+记录：
+3.
+现在大致明白了mvc结构。
+model：在src里面的java类，被controller调用
+controller：就是servlet，
+view：就是jsp
+mvc工作流程：
+根据web.xml的定义，用户请求不同的路径，调用不同的servlet
+servlet对request里面的数据进行处理（调用model）
+servlet把经过model处理的数据setAttribute到request里
+servlet让container把带有处理过的数据的request转发给jsp
+jsp显示页面给用户
+
+
+2.
+尝试JDBC，完毕。
+注意web项目的结构……折腾了一整天。
+在servlet和jsp里面使用jdbc连接数据库的时候
+也需要在idea左边的project面板里的external libraries--
+--里的tomcat 8.5.28里面添加mysql-connector-java-bin.jar
+具体做法是
+把这个jar包放在tomcat的安装目录下的/lib/文件夹里面，
+然后在菜单栏的file的project structure里面
+module -> dependencies -> 右键点击tomcat -> edit -> 加号 -> 选择这个jar包
+
+1.
+登录功能的流程应该是index.jsp有login.jsp的链接，
+用户在login.jsp填写字段
+login.jsp调用servlet进行查询，
+servlet根据post的表单在数据库里查询，
+成功就返回token，（内容应该为包含该用户名和随机数的字符串的md5。但是为了方便起见，就先将其设置为用户名吧！）
+把token作为cookie发送给客户端，
+然后重定向到index.jsp
+当用户刷新index.jsp的时候，
+服务器根据浏览器提交的cookie判断用户是否已经登录，据此展示不同的界面或者重定向。
+这里可以关注：cookie窃取和session劫持，cookie的domain参数详解
+
