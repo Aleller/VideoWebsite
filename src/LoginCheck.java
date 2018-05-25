@@ -86,7 +86,7 @@ public class LoginCheck extends HttpServlet {
         if(success){
             //设置登录成功cookie
             Cookie cookie1 = new Cookie("loginSuccess","true");
-            Cookie cookie2 = new Cookie("userName","admin");
+            Cookie cookie2 = new Cookie("userName", userName);
             response.addCookie(cookie1);
             response.addCookie(cookie2);
         }else{
