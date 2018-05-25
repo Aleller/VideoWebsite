@@ -14,7 +14,7 @@
 
 <%!
     public void jspInit() {
-        //初始化数据库连接
+
 
         //如果是从login.jsp重定向到index.jsp，查看cookie判断是否已经登录
 
@@ -27,6 +27,8 @@
 %>
 
 <%
+    boolean success = false;
+
     //获取cookie验证用户是否已经登录
     Cookie cookie1 = null;
     Cookie cookie2 = null;
@@ -45,9 +47,18 @@
 
         if((cookie1 != null) && (cookie2 != null)){
             if(cookie1.getValue().equals("true")){
-                out.println(cookie2.getValue() + "login success!");
+                success = true;
+
             }
         }
+    }
+
+    if(success){
+%>
+
+<p>login success!</p><br>
+
+<%
     }
 %>
 

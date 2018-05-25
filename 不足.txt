@@ -1,0 +1,7 @@
+未做好的地方：
+1.
+数据库的user表里面存储的是用户的密码明文。以后可以存储密码的md5
+2.
+login.jsp和index.jsp还可以不经过servlet直接访问，没有遵循mvc模式
+而且login.jsp里面还有（本来应该放在servlet里的）验证cookie内容的代码
+3.
