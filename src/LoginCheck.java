@@ -13,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.Query;
+
 @WebServlet(name = "LoginCheck")
 public class LoginCheck extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,29 +24,14 @@ public class LoginCheck extends HttpServlet {
         boolean success = false;
 
         /*在数据库中查询*/
-        //获取连接对象conn
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/VideoWebsite";
-        String DBUserName = "root";
-        String DBPassword = "admin";
-        com.mysql.jdbc.Connection conn = null;
+        Query query = new Query();
 
-        try{
-            Class.forName(driver);//classLoader
-            conn = (Connection) DriverManager.getConnection(url,DBUserName,DBPassword);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+        query.initializeResources();
 
-        //拼接sql语句，进行查询
+        //拼接sql语句
         String sql = "select * from user where userName='" + userName + "' and password='" + password + "'";
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        ResultSet rs = query.retrieve(sql);
         try{
-            ps = (PreparedStatement)conn.prepareStatement(sql);
-            rs = ps.executeQuery();
             int rowCount = 0;
             while (rs.next()) {//每行
                 rowCount++;
@@ -59,28 +46,7 @@ public class LoginCheck extends HttpServlet {
             e.printStackTrace();
         }
 
-        //关闭数据库连接
-        try{
-            if(rs != null){
-                rs.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try{
-            if(ps != null){
-                ps.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try{
-            if(conn != null){
-                conn.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        query.destroyResources();
 
         /*设置cookie*/
         if(success){
