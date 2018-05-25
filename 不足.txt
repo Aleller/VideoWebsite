@@ -5,3 +5,8 @@
 login.jsp和index.jsp还可以不经过servlet直接访问，没有遵循mvc模式
 而且login.jsp里面还有（本来应该放在servlet里的）验证cookie内容的代码
 3.
+没有使用maven管理项目，还好页面不多，项目结构不复杂
+4.
+src目录下的controller和model的类没有分开（先这样吧）
+5.
+没有注册失败的页面：registerFail.jsp（有时间就补上）

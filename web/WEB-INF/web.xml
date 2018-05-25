@@ -13,5 +13,14 @@
         <url-pattern>/login.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>RegisterCheck</servlet-name>
+        <servlet-class>RegisterCheck</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterCheck</servlet-name>
+        <url-pattern>/register.do</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
