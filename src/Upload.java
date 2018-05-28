@@ -1,5 +1,6 @@
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.File;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.List;
 
+import model.Query;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -24,6 +27,10 @@ public class Upload extends HttpServlet {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; //50MB
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String contributionName = null;
+        String userName = null;
+        String fileName = null;
+
         //检测是否为多媒体上传
         if(!ServletFileUpload.isMultipartContent(request)){
             //如果不是则停止
@@ -61,8 +68,9 @@ public class Upload extends HttpServlet {
             uploadDIR.mkdir();
         }
 
+        boolean writeSuccess = false;
         try{
-            //解析请求的内容，提取文件
+            //解析请求的内容，提取文件并写入磁盘
             List<FileItem> formItems = upload.parseRequest(request);
 
             if(formItems != null && formItems.size() > 0){
@@ -70,7 +78,26 @@ public class Upload extends HttpServlet {
                 for(FileItem item : formItems){
                     //处理不在表单中的字段
                     if(!item.isFormField()){
-                        String fileName = new File(item.getName()).getName();
+                        fileName = new File(item.getName()).getName();
+
+                        //文件重命名：命名为当前最大videoID加1，避免重名
+                        Query query = new Query();
+                        query.initializeResources();
+
+                        String sql = "select * from video";
+                        ResultSet rs = query.retrieve(sql);
+                        int count = -1;
+                        while(rs.next()){
+                            int temp = Integer.parseInt(rs.getString(1));
+                            if(count <= temp){
+                                count = temp;
+                            }
+                        }
+                        fileName = String.valueOf(count+1) + ".mp4";
+
+                        query.destroyResources();
+                        //重命名完成
+
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
                         //在控制台上输出文件的上传路径
@@ -78,11 +105,44 @@ public class Upload extends HttpServlet {
                         //保存文件到硬盘
                         item.write(storeFile);
                         request.setAttribute("message","文件上传成功");
+
+                        writeSuccess = true;
+
+                    }
+                    else{
+                        String nameTemp = item.getFieldName();
+
+                        // Set charset = UTF-8 Default = ISO-8859-1
+                        // Get field value
+                        if(nameTemp.equals("contributionName")){
+                            contributionName = item.getString("utf-8");
+                        }
                     }
                 }
             }
         }catch(Exception ex){
             request.setAttribute("message","错误信息：" + ex.getMessage());
+        }
+
+        if(writeSuccess){
+            //如果文件已经写入磁盘，则记录入库
+            Query query = new Query();
+
+            query.initializeResources();
+
+            Cookie cookies[] = request.getCookies();
+            if(cookies!=null){
+                for(int i=0;i<cookies.length;i++){
+                    if(cookies[i].getName().equals("userName")){
+                        userName = cookies[i].getValue();
+                    }
+                }
+            }
+            String sql = "insert into video values(NULL, '" + userName + "', 'C:\\\\Data\\\\java\\\\VideoWebsite\\\\video\\\\"+ fileName +"', '"+ contributionName +"')";
+            query.create(sql);
+
+            query.destroyResources();
+            //记录已经入库
         }
 
         //跳转到message.jsp

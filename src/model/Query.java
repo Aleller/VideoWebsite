@@ -32,6 +32,7 @@ public class Query {
 
         return;
     }
+
     //在使用此对象之后调用
     public void destroyResources(){
         try{

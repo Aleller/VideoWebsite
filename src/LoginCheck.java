@@ -72,7 +72,7 @@ public class LoginCheck extends HttpServlet {
         PrintWriter out = response.getWriter();
         //out.println("login success!");
 
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("index.jsp");
 
         return;
     }
