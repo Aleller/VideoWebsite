@@ -31,4 +31,13 @@
         <url-pattern>/upload.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Play</servlet-name>
+        <servlet-class>Play</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Play</servlet-name>
+        <url-pattern>/play</url-pattern>
+    </servlet-mapping>
+
 </web-app>

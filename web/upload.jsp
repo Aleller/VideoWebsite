@@ -42,7 +42,7 @@
 <form method="post" action="upload.do" enctype="multipart/form-data">
     稿件名称：<br>
     <input type="text" name="contributionName"/><br>
-    选择一个mp4文件：<br>
+    选择一个mp4文件（仅限AVC编码）：<br>
     <input type="file" name="video"/><br>
     <input type="submit" value="上传"/>
 </form>

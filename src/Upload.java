@@ -19,7 +19,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "Upload")
 public class Upload extends HttpServlet {
     //上传文件存储目录
-    private static final String UPLOAD_DIRECTORY = "../../../../VideoWebsite/video";
+    private static final String UPLOAD_DIRECTORY = "../../../../VideoWebsite/web/video";
 
     //上传配置
     private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3; //3MB
@@ -138,7 +138,7 @@ public class Upload extends HttpServlet {
                     }
                 }
             }
-            String sql = "insert into video values(NULL, '" + userName + "', 'C:\\\\Data\\\\java\\\\VideoWebsite\\\\video\\\\"+ fileName +"', '"+ contributionName +"')";
+            String sql = "insert into video values(NULL, '" + userName + "', 'video\\\\"+ fileName +"', '"+ contributionName +"')";
             query.create(sql);
 
             query.destroyResources();
