@@ -15,10 +15,6 @@
 <%!
     public void jspInit() {
 
-
-        //如果是从login.jsp重定向到index.jsp，查看cookie判断是否已经登录
-
-        //
     }
 
     public void jspDestroy() {
@@ -27,36 +23,37 @@
 %>
 
 <%
-    boolean success = false;
+    boolean loginSuccess = (boolean)request.getAttribute("loginSuccess");
+    String userName = (String)request.getAttribute("userName");
+    String contributionName[] = (String[])request.getAttribute("contributionName");
+    String contributionOwner[] = (String[])request.getAttribute("contributionOwner");
+    String videoID[] = (String[])request.getAttribute("videoID");
 
-    //获取cookie验证用户是否已经登录
-    Cookie cookie1 = null;
-    Cookie cookie2 = null;
-    Cookie cookies[] = request.getCookies();
-    boolean loginSuccess = false;
-
-    if(cookies != null){
-        for(int i=0;i<cookies.length;i++){
-            if(cookies[i].getName().equals("loginSuccess")){
-                cookie1 = cookies[i];
-            }
-            if(cookies[i].getName().equals("userName")){
-                cookie2 = cookies[i];
-            }
-        }
-
-        if((cookie1 != null) && (cookie2 != null)){
-            if(cookie1.getValue().equals("true")){
-                success = true;
-
-            }
-        }
-    }
-
-    if(success){
+    if(loginSuccess){
 %>
 
-<p>login success!</p><br>
+<p>欢迎用户<%=userName%></p><br>
+
+<%
+    }else{
+%>
+
+<a href="login.jsp">请登录</a>
+
+<%
+    }
+%>
+
+<a href="upload.jsp">投稿</a>
+
+<%
+    for(int i=0;i<8;i++){
+%>
+
+<P>
+    <a href="play?videoID=<%=videoID[i]%>"><%=contributionName[i]%></a>
+    <%=contributionOwner[i]%>
+</P>
 
 <%
     }
