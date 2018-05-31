@@ -36,6 +36,7 @@
     if(loginSuccess.equals("false")){
         response.sendRedirect("login.jsp");
     }
+    //判断完毕
 %>
 
 <body>
