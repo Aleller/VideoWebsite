@@ -48,6 +48,7 @@ public class Play extends HttpServlet {
             request.setAttribute("path", path);
             request.setAttribute("contributionName", contributionName);
             request.setAttribute("contributionOwner", contributionOwner);
+            request.setAttribute("videoID_str", videoID_str);
         }else{
             request.setAttribute("success", "false");
             request.setAttribute("errorMessage", "视频不见了……");

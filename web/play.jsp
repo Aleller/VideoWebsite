@@ -11,18 +11,29 @@
     <title><%=request.getAttribute("contributionName")%></title>
 </head>
 <body>
+
 <%
     if(request.getAttribute("success").equals("true")){
 %>
+
 <h1><%=request.getAttribute("contributionName")%></h1>
+
 <h2><%=request.getAttribute("contributionOwner")%></h2>
+
 <video controls="controls" height="540" width="960">
     <source src="<%=request.getAttribute("path")%>" type="video/mp4" >
 </video>
+
 <%
     }else{
         out.print(request.getAttribute("errorMessage"));
     }
 %>
+
+<form action="collect" method="GET">
+    <input type="hidden" name="videoID_str" value="<%=(String)request.getAttribute("videoID_str")%>"/>
+    <input type="submit" value="收藏"/>
+</form>
+
 </body>
 </html>

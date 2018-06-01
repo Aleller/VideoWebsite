@@ -58,4 +58,13 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Collect</servlet-name>
+        <servlet-class>Collect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Collect</servlet-name>
+        <url-pattern>/collect</url-pattern>
+    </servlet-mapping>
+
 </web-app>
