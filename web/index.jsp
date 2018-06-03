@@ -8,50 +8,48 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>网站首页</title>
+    <title>首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" title="login">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
 </head>
 <body>
 
-<%!
-    public void jspInit() {
-
-    }
-
-    public void jspDestroy() {
-
-    }
+<%
+    boolean loginSuccess = (boolean) request.getAttribute("loginSuccess");
+    String userName = (String) request.getAttribute("userName");
+    String contributionName[] = (String[]) request.getAttribute("contributionName");
+    String contributionOwner[] = (String[]) request.getAttribute("contributionOwner");
+    String videoID[] = (String[]) request.getAttribute("videoID");
 %>
 
-<%
-    boolean loginSuccess = (boolean)request.getAttribute("loginSuccess");
-    String userName = (String)request.getAttribute("userName");
-    String contributionName[] = (String[])request.getAttribute("contributionName");
-    String contributionOwner[] = (String[])request.getAttribute("contributionOwner");
-    String videoID[] = (String[])request.getAttribute("videoID");
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index">视频网站</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <%if(loginSuccess){%>
+                <li class="active"><a href="/space?userName=<%=userName%>"><%=userName%>的个人空间</a></li>
+                <%}else{%>
+                <li class="active"><a href="/login.jsp"><%=userName%>请登录</a></li>
+                <%}%>
 
-    if(loginSuccess){
-%>
-
-<p>欢迎用户<%=userName%></p><br>
-
-<%
-    }else{
-%>
-
-<a href="login.jsp">请登录</a>
-
-<%
-    }
-%>
-
-<a href="upload.jsp">投稿</a>
+                <li><a href="upload.jsp">投稿</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <%
-    for(int i=0;i<8;i++){
+    for (int i = 0; i < 8; i++) {
 %>
 
 <P>
-    <a href="play?videoID=<%=videoID[i]%>"><%=contributionName[i]%></a>
+    <a href="play?videoID=<%=videoID[i]%>"><%=contributionName[i]%>
+    </a>
     <%=contributionOwner[i]%>
 </P>
 

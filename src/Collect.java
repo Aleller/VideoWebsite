@@ -54,11 +54,8 @@ public class Collect extends HttpServlet {
             request.setAttribute("message", message);
             RequestDispatcher view = request.getRequestDispatcher("collect.jsp");
             view.forward(request,response);
-
-            return;
         }else{
             response.sendRedirect("login.jsp");
-            return;
         }
     }
 }
