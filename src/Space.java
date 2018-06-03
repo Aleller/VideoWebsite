@@ -19,6 +19,7 @@ public class Space extends HttpServlet {
         //这个servlet的作用是将用户请求访问的个人空间中所要展示的信息提供给jsp页面
         String userName = request.getParameter("userName");
 
+        //获取用户的投稿信息
         Query query = new Query();
         query.initializeResources();
 
@@ -47,10 +48,41 @@ public class Space extends HttpServlet {
         }catch(SQLException e){
             e.printStackTrace();
         }
+        //获取用户的投稿信息完毕
+
+        //获取用户的收藏信息
+        sql = "select * from collection as a,video as b where a.videoID = b.videoID and a.userName='"+userName+"'";
+        resultSet = query.retrieve(sql);
+        int collectCount = 0;
+        try{
+            while(resultSet.next()){
+                collectCount++;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        String collectVideoID[] = new String[collectCount];
+        String collectContributionName[] = new String[collectCount];
+
+        resultSet = query.retrieve(sql);
+        try{
+            int i=0;
+            while(resultSet.next()){
+                collectVideoID[i] = resultSet.getString("videoID");
+                collectContributionName[i] = resultSet.getString("contributionName");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        //获取收藏信息完毕
+
         request.setAttribute("videoID", videoID);
         request.setAttribute("contributionName", contributionName);
         request.setAttribute("contributionCount", contributionCount);
         request.setAttribute("userName", userName);
+        request.setAttribute("collectVideoID", collectVideoID);
+        request.setAttribute("collectContributionName", collectContributionName);
 
         query.destroyResources();
 

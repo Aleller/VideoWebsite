@@ -21,15 +21,16 @@ public class Collect extends HttpServlet {
         String userName = null;
         String videoID_str = request.getParameter("videoID_str");
 
+        //检查是否登录；获取userName
         Cookie cookies[] = request.getCookies();
         for(int i=0;i<cookies.length; i++){
             if(cookies[i].getName().equals("loginSuccess")){
                 if(cookies[i].getValue().equals("true")){
                     loginSuccess = true;
                 }
-                if(cookies[i].getName().equals("userName")){
-                    userName = cookies[i].getValue();
-                }
+            }
+            if(cookies[i].getName().equals("userName")){
+                userName = cookies[i].getValue();
             }
         }
 
@@ -37,9 +38,8 @@ public class Collect extends HttpServlet {
             Query query = new Query();
             query.initializeResources();
 
-            int effectedLine = 0;
             String sql = "insert into collection values ('"+userName+"','"+videoID_str+"')";
-            effectedLine = query.create(sql);
+            int effectedLine = query.create(sql);
 
             query.destroyResources();
 
