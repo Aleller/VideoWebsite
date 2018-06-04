@@ -9,10 +9,18 @@
 <html>
 <head>
     <title>上传信息</title>
+
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>
-    ${message}
-</h2>
+
+<div class="text-center">
+    <div class="page-header">
+        <h2>${message}</h2>
+    </div>
+</div>
+
 </body>
 </html>

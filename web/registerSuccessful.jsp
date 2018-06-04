@@ -9,17 +9,33 @@
 <html>
 <head>
     <title>注册</title>
+
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
 </head>
 <body>
 <%
     boolean successful = (boolean)(request.getAttribute("successful"));
     if(successful){
         %>
-            <h1>注册成功！请关闭页面</h1>
+
+<div class="text-center">
+    <div class="page-header">
+        <h1>注册成功！请关闭页面</h1>
+    </div>
+</div>
+
         <%
     }else{
         %>
-            <h1>注册失败！该用户名已经被使用</h1>
+
+<div class="text-center">
+    <div class="page-header">
+        <h1>注册失败！该用户名已经被使用</h1>
+    </div>
+</div>
+
         <%
     }
 %>
