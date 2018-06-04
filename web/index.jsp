@@ -10,9 +10,15 @@
 <head>
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" title="login">
-    <script src="js/jquery/2.0.0/jquery.min.js"></script>
     <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
     <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+    <style>
+        .panel{
+            margin: 30px;
+        }
+    </style>
 </head>
 <body>
 
@@ -34,7 +40,7 @@
                 <%if(loginSuccess){%>
                 <li class="active"><a href="/space?userName=<%=userName%>"><%=userName%>的个人空间</a></li>
                 <%}else{%>
-                <li class="active"><a href="/login.jsp"><%=userName%>请登录</a></li>
+                <li class="active"><a href="/login.jsp">请登录</a></li>
                 <%}%>
 
                 <li><a href="upload.jsp">投稿</a></li>
@@ -43,19 +49,21 @@
     </div>
 </nav>
 
-<%
-    for (int i = 0; i < 8; i++) {
-%>
-
-<P>
-    <a href="play?videoID=<%=videoID[i]%>"><%=contributionName[i]%>
-    </a>
-    <%=contributionOwner[i]%>
-</P>
-
-<%
-    }
-%>
+<div class="row">
+    <% for (int i = 0; i < 8; i++) { %>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="play?videoID=<%=videoID[i]%>">
+                        <img src="image/null.png">
+                    </a>
+                    <%=contributionName[i]%><br>
+                    up主：<%=contributionOwner[i]%>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
 
 </body>
 </html>
