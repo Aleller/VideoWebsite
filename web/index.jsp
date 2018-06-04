@@ -18,6 +18,14 @@
         .panel{
             margin: 30px;
         }
+        #contributionName{
+            font-family: Consolas;
+            font-size: large;
+        }
+        #contributionOwner{
+            font-family: Consolas;
+            font-size: medium;
+        }
     </style>
 </head>
 <body>
@@ -37,12 +45,17 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <%if(loginSuccess){%>
+                <% if(loginSuccess){ %>
                 <li class="active"><a href="/space?userName=<%=userName%>"><%=userName%>的个人空间</a></li>
-                <%}else{%>
+                <% }else{ %>
                 <li class="active"><a href="/login.jsp">请登录</a></li>
-                <%}%>
+                <% } %>
+
                 <li><a href="upload.jsp">投稿</a></li>
+
+                <% if(loginSuccess){ %>
+                <li><a href="/logout">注销</a></li>
+                <% } %>
             </ul>
         </div>
     </div>
@@ -56,8 +69,9 @@
                     <a href="play?videoID=<%=videoID[i]%>">
                         <img src="image/null.png">
                     </a>
-                    <%=contributionName[i]%><br>
-                    up主：<%=contributionOwner[i]%>
+                    <br>
+                    <div id="contributionName"><%=contributionName[i]%></div>
+                    <div id="contributionOwner">up主：<%=contributionOwner[i]%></div>
                 </div>
             </div>
         </div>
