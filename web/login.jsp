@@ -9,27 +9,78 @@
 <html>
 <head>
     <title>登录</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" title="login">
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        #loginForm{
+            margin: 10px 200px 10px 200px;
+            padding: 10px 200px 10px 200px;
+        }
+        #registerForm{
+            margin: 10px 200px 10px 200px;
+            padding: 10px 200px 10px 200px;
+        }
+    </style>
 </head>
 <body>
 
-<%
-    //不检查当前用户是否已经登录，如果登录，询问用户是否退出当前账户。
-    //因为登录过后的index.jsp必定是隐藏了登录按钮的。
-%>
+<div class="text-center">
+    <div class="page-header">
+        <h1>登录</h1>
+    </div>
+</div>
 
-<p>登录</p>
-<form action="login.do" method="POST">
-    用户名：<input type="text" name="userName"/><br>
-    密码：<input type="password" name="password"/><br>
-    <input type="submit" value="登录"/>
-</form>
+<div class="panel panel-default" id="loginForm">
+    <form role="form" action="login.do" method="POST">
+        <div class="input-group">
+            <span class="input-group-addon">用户名：</span>
+            <input type="text" class="form-control" name="userName">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">密码：</span>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <br>
+        <div class="input-group">
+            <button id="loginButton" type="submit" class="btn btn-default">登录</button>
+        </div>
+    </form>
+</div>
 
-<p>注册</p>
-<form action="register.do" method="POST">
-    用户名：<input type="text" name="userName"/><br>
-    密码：<input type="password" name="password_1"/><br>
-    重复密码：<input type="password" name="password_2"/><br>
-    <input type="submit" value="注册"/>
-</form>
+<div class="panel panel-default" id="registerForm">
+    <div class="text-center">
+        <div class="page-header">
+            <h2>还没有账号？马上注册</h2>
+        </div>
+    </div>
+
+    <form role="form" action="register.do" method="POST">
+        <div class="input-group">
+            <span class="input-group-addon">用户名：</span>
+            <input type="text" class="form-control" name="userName">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">密码：</span>
+            <input type="password" class="form-control" name="password_1">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">重复密码：</span>
+            <input type="password" class="form-control" name="password_2">
+        </div>
+        <br>
+        <div class="input-group">
+            <button id="registerButton" type="submit" class="btn btn-default">注册</button>
+        </div>
+    </form>
+</div>
+
+
 </body>
 </html>

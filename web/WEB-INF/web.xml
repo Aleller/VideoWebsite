@@ -67,4 +67,13 @@
         <url-pattern>/collect</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>LogOut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
 </web-app>
