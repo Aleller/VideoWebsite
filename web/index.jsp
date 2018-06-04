@@ -42,7 +42,6 @@
                 <%}else{%>
                 <li class="active"><a href="/login.jsp">请登录</a></li>
                 <%}%>
-
                 <li><a href="upload.jsp">投稿</a></li>
             </ul>
         </div>
