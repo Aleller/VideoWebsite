@@ -10,6 +10,16 @@
 <html>
 <head>
     <title>投稿</title>
+
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+    <style>
+        #uploadForm{
+            margin: 0px 400px 0px 400px;
+        }
+    </style>
 </head>
 
 
@@ -40,12 +50,25 @@
 %>
 
 <body>
-<form method="post" action="upload.do" enctype="multipart/form-data">
-    稿件名称：<br>
-    <input type="text" name="contributionName"/><br>
-    选择一个mp4文件（仅限AVC编码）：<br>
-    <input type="file" name="video"/><br>
-    <input type="submit" value="上传"/>
+
+<div class="text-center">
+    <div class="page-header">
+        <h1>投稿</h1>
+    </div>
+</div>
+
+<form id="uploadForm" role="form" method="post" action="upload.do" enctype="multipart/form-data">
+    <div class="input-group">
+        <span class="input-group-addon">稿件名称：</span>
+        <input type="text" class="form-control" name="contributionName">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="inputfile">选择一个mp4文件（仅限AVC编码）：<br></label>
+        <input type="file" name="video"/><br>
+    </div>
+    <button type="submit" class="btn btn-primary">上传</button>
 </form>
+
 </body>
 </html>
