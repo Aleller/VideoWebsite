@@ -17,8 +17,8 @@
 
     <style type="text/css">
         #loginForm{
-            margin: 10px 200px 10px 200px;
-            padding: 10px 200px 10px 200px;
+            margin: 10px 200px 10px;
+            padding: 10px 200px 10px;
         }
         #registerForm{
             margin: 10px 200px 10px 200px;

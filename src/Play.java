@@ -2,6 +2,7 @@ import model.Query;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,31 @@ public class Play extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*这个servlet的任务是要把对应的video的路径提供给jsp页面*/
+
+        //获取cookie验证用户是否已经登录
+        Cookie cookie1 = null;
+        Cookie cookie2 = null;
+        Cookie cookies[] = request.getCookies();
+        boolean loginSuccess = false;
+        String userName = null;
+
+        if(cookies != null){
+            for(int i=0;i<cookies.length;i++){
+                if(cookies[i].getName().equals("loginSuccess")){
+                    cookie1 = cookies[i];
+                }
+                if(cookies[i].getName().equals("userName")){
+                    cookie2 = cookies[i];
+                }
+            }
+
+            if((cookie1 != null) && (cookie2 != null)){
+                if(cookie1.getValue().equals("true")){
+                    loginSuccess = true;
+                    userName = cookie2.getValue();
+                }
+            }
+        }
 
         //数据库查询
         Query query = new Query();
@@ -53,6 +79,8 @@ public class Play extends HttpServlet {
             request.setAttribute("success", "false");
             request.setAttribute("errorMessage", "视频不见了……");
         }
+        request.setAttribute("loginSuccess", loginSuccess);
+        request.setAttribute("userName", userName);
 
         RequestDispatcher view = request.getRequestDispatcher("play.jsp");
         view.forward(request, response);
