@@ -71,18 +71,47 @@ public class Space extends HttpServlet {
             while(resultSet.next()){
                 collectVideoID[i] = resultSet.getString("videoID");
                 collectContributionName[i] = resultSet.getString("contributionName");
+                i++;
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
         //获取收藏信息完毕
 
+        //获取cookie验证用户是否已经登录
+        Cookie cookie1 = null;
+        Cookie cookie2 = null;
+        Cookie cookies[] = request.getCookies();
+        boolean loginSuccess = false;
+        String loginUserName = null;
+
+        if(cookies != null){
+            for(int i=0;i<cookies.length;i++){
+                if(cookies[i].getName().equals("loginSuccess")){
+                    cookie1 = cookies[i];
+                }
+                if(cookies[i].getName().equals("userName")){
+                    cookie2 = cookies[i];
+                }
+            }
+
+            if((cookie1 != null) && (cookie2 != null)){
+                if(cookie1.getValue().equals("true")){
+                    loginSuccess = true;
+                    loginUserName = cookie2.getValue();
+                }
+            }
+        }
+
         request.setAttribute("videoID", videoID);
         request.setAttribute("contributionName", contributionName);
         request.setAttribute("contributionCount", contributionCount);
         request.setAttribute("userName", userName);
+        request.setAttribute("collectCount", collectCount);
         request.setAttribute("collectVideoID", collectVideoID);
         request.setAttribute("collectContributionName", collectContributionName);
+        request.setAttribute("loginSuccess", loginSuccess);
+        request.setAttribute("loginUserName", loginUserName);
 
         query.destroyResources();
 
